@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Example",
+    "url": "https://example.com",
+    "tags": ["foo"]
+  },
+  {
+    "name": "Google",
+    "url": "https://google.com"
+  },
+  {
+    "name": "GitHub",
+    "url": "https://github.com"
+  },
+  {
+    "name": "GitHub Gist",
+    "url": "https://gist.github.com"
+  },
+  {
+    "name": "GitHub Pages",
+    "url": "https://pages.github.com",
+    "tags": ["foo"]
+  }
+]
