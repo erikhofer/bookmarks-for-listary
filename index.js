@@ -1,9 +1,15 @@
 const express = require('express')
 const Fuse = require('fuse.js')
 const fs = require('fs')
+var yargs = require('yargs/yargs')
+
+const options = yargs(process.argv.slice(2))
+	.usage('Usage: $0 --json [path to json]')
+	.default({ port: 8000 })
+	.demandOption(['json'])
+	.parse()
 
 const app = express()
-const port = 3000
 
 const fuseOptions = {
 	// isCaseSensitive: false,
@@ -27,7 +33,8 @@ const fuseOptions = {
 	]
 }
 
-const bookmarks = JSON.parse(fs.readFileSync('example/bookmarks.json', 'utf8'))
+console.log(`Loading bookmarks from ${options.json}`)
+const bookmarks = JSON.parse(fs.readFileSync(options.json, 'utf8'))
 
 const fuse = new Fuse(bookmarks, fuseOptions);
 
@@ -37,13 +44,13 @@ app.get('/', (req, res) => {
 
 app.get('/suggest', (req, res) => {
   const query = req.query.q
-  const result = fuse.search(query)
+  const result = fuse.search(query, { limit: 5 })
   res.json([query, result.map(r => r.item.name)])
 })
 
 app.get('/open', (req, res) => {
   const query = req.query.q
-  const result = fuse.search(query)
+  const result = fuse.search(query, { limit: 1 })
   if (result.length === 0) {
     res.status(404).send('Not found')
     return
@@ -51,7 +58,7 @@ app.get('/open', (req, res) => {
   res.redirect(result[0].item.url)
 })
 
-app.listen(port, () => {
-  console.log(`Bookmarks for Listary started on port ${port}`)
+app.listen(options.port, () => {
+  console.log(`Bookmarks for Listary started on port ${options.port}`)
 })
 

@@ -4,13 +4,14 @@
   "description": "Connect your browser bookmarks to listary",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node index.js --json example/bookmarks.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "erikhofer",
   "license": "MIT",
   "dependencies": {
     "express": "^4.21.2",
-    "fuse.js": "^7.1.0"
+    "fuse.js": "^7.1.0",
+    "yargs": "^17.7.2"
   }
 }
