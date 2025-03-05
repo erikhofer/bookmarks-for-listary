@@ -5,7 +5,7 @@ var yargs = require('yargs/yargs')
 
 const options = yargs(process.argv.slice(2))
 	.usage('Usage: $0 --json [path to json]')
-	.default({ port: 8000 })
+	.default({ port: 8080 })
 	.demandOption(['json'])
 	.parse()
 
